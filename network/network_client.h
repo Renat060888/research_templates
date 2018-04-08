@@ -5,7 +5,6 @@
 #include <vector>
 
 class INetworkClientObserver {
-
 public:
     virtual ~INetworkClientObserver(){}
     virtual void networkEvent( const std::string & _data ) = 0;
@@ -16,16 +15,6 @@ struct SConnectionSettings {
     std::string host;
     int port;
     int pollTimeout;
-};
-
-struct SNetworkPackage {
-    int64_t id;
-    std::string dataString;
-    void * dataBinary;
-    int len;
-
-    std::string serialize();
-    void * serialize( int & _len );
 };
 
 class ANetworkClient {
