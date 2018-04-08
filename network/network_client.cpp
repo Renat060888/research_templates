@@ -22,16 +22,20 @@ ANetworkClient::~ANetworkClient(){
 }
 
 const std::string & ANetworkClient::getLastError(){
-
+    return m_lastError;
 }
 
 bool ANetworkClient::addObserver( INetworkClientObserver * _observer ){
 
+    // TODO: check for duplicate
 
+    m_observers.push_back( _observer );
+    return true;
 }
 
 bool ANetworkClient::removeObserver( INetworkClientObserver * _observer ){
 
+    // TODO: do :)
 
-
+    return true;
 }

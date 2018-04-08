@@ -22,17 +22,21 @@ class ANetworkClient {
 public:
     ANetworkClient();
     virtual ~ANetworkClient();
+
+    // system
     virtual bool init( const SConnectionSettings & _settings  ) = 0;
+    virtual void runNetworkCallbacks() = 0;
     const std::string & getLastError();
 
-    virtual void runNetworkCallbacks() = 0;
-
+    // data receipt
     bool addObserver( INetworkClientObserver * _observer );
     bool removeObserver( INetworkClientObserver * _observer );
 
+    // data sending
     virtual bool sendDataAsync( const std::string & _data ) = 0;
     virtual bool sendDataAsync( const void * _data, int _len ) = 0;
 
+    // only for synchronous protocols ( HTTP, REQ-RES in ZeroMQ, etc. )
     virtual bool sendData( const std::string & _data ) = 0;
     virtual bool sendData( const void * _data, int _len ) = 0;
 
