@@ -2,23 +2,22 @@
 // project
 #include "network_client.h"
 
-struct SNetworkPackage {
-    int64_t id;
-    std::string dataString;
-    void * dataBinary;
-    int len;
-
-    std::string serialize();
-    void * serialize( int & _len );
-};
-
-ANetworkClient::ANetworkClient(){
+ANetworkClient::ANetworkClient() :
+    m_shutdown(false){
 
 
 }
 
 ANetworkClient::~ANetworkClient(){
 
+    m_shutdown = true;
+}
+
+void ANetworkClient::threadNetworkCallbacks(){
+
+    while( ! m_shutdown ){
+        runNetworkCallbacks();
+    }
 }
 
 const std::string & ANetworkClient::getLastError(){

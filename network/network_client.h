@@ -3,6 +3,7 @@
 // std
 #include <string>
 #include <vector>
+#include <thread>
 
 class INetworkClientObserver {
 public:
@@ -15,6 +16,7 @@ struct SConnectionSettings {
     std::string host;
     int port;
     int pollTimeout;
+    bool asyncPoll;
 };
 
 class ANetworkClient {
@@ -41,11 +43,13 @@ public:
     virtual bool sendData( const void * _data, int _len ) = 0;
 
 protected:
-
+    void threadNetworkCallbacks();
 
 private:
     std::string m_lastError;
     std::vector<INetworkClientObserver *> m_observers;
+    std::thread m_threadNetworkCallbacks;
+    bool m_shutdown;
 };
 
 
